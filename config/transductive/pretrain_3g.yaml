@@ -1,0 +1,56 @@
+output_dir: ~/git/ultra_torchdrug/ultra_output/
+
+dataset:
+  class: JointDataset
+  path: ~/git/ultra_torchdrug/kg-datasets/
+  graphs: [FB15k237, WN18RR, CoDExMedium]
+
+task:
+  class: MultiGraphPreTraining
+  model:
+    class: TransferNBFNet
+    input_dim: 64
+    hidden_dims: [64, 64, 64, 64, 64, 64]
+    message_func: distmult
+    aggregate_func: sum
+    short_cut: yes
+    layer_norm: yes
+    project: yes
+    mod: yes
+    remove_one_hop: no
+  rel_models:
+    class: RelationModelList
+    num_rel_models: 1
+    rel_model:
+      class_str: RelNBFNet 
+      input_dim: 64
+      input_type: ones
+      num_layers: 6
+      num_heads: 4
+      hidden: 64
+      dropout_rate: 0.1
+      mine_complexes: no
+      output_layer_norm: yes
+      remove_self_loops: yes
+  criterion: bce
+  num_negative: 128
+  strict_negative: yes
+  adversarial_temperature: 1.0
+  sample_weight: no
+
+optimizer:
+  class: AdamW
+  lr: 0.0005
+
+engine:
+  gpus: {{ gpus }}
+  batch_size: 64
+  #logger: wandb
+
+train:
+  num_epoch: 10
+  batch_per_epoch: 20000
+  
+metric: mrr
+debug: False
+fast_test: 500
