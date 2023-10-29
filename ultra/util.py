@@ -266,7 +266,7 @@ def safe_load(solver, checkpoint, fix_reasoner=False, drop_optimizer=True):
             if not fix_reasoner:
                 solver.optimizer.load_state_dict(state["optimizer"])
         except:
-            print("\n\n\n\nwarninig: loaded state dict has a different number of parameter groups\n\n\n\n")
+            print("\n\n\n\nwarning: loaded state dict has a different number of parameter groups\n\n\n\n")
 
         for state in solver.optimizer.state.values():
             for k, v in state.items():

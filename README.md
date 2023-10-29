@@ -18,7 +18,7 @@ This is the TorchDrug implementation of [ULTRA], a foundation model for KG reaso
 ## Installation ##
 
 You may install the dependencies via either conda or pip. 
-Ultra (TorchDrug) is compatible with Python 3.7/3.8/3.9, PyTorch 1.13 and PyG 2.3 (CUDA 11.7 or later wnen running on GPUs). If you are on a Mac, you may omit the CUDA toolkit requirements (tested with PyTorch 2.0 with the relevant `torch-scatter` version on Mac M2).
+Ultra (TorchDrug) is compatible with Python 3.7/3.8/3.9, PyTorch 1.13 and PyG 2.3 (CUDA 11.7 or later when running on GPUs). If you are on a Mac, you may omit the CUDA toolkit requirements (tested with PyTorch 2.0 with the relevant `torch-scatter` version on Mac M2).
 
 ### From Conda ###
 
@@ -143,7 +143,7 @@ To run ULTRA with multiple GPUs, use the following commands (eg, 4 GPUs per node
 python -m torch.distributed.launch --nproc_per_node=4 script/run_full.py -c config/transductive/pretrain.yaml --gpus [0,1,2,3]
 ```
 
-Multi-node setup might work as well(not tested):
+Multi-node setup might work as well (not tested):
 ```bash
 python -m torch.distributed.launch --nnodes=4 --nproc_per_node=4 script/pretrain.py -c config/transductive/pretrain.yaml --gpus [0,1,2,3,0,1,2,3,0,1,2,3,0,1,2,3]
 ```
